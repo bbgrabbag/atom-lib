@@ -2,12 +2,13 @@
   "name": "component-lib",
   "version": "1.0.0",
   "description": "Personal ReactJS component library",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "build": "babel lib -d build",
     "lint": "eslint lib/**; exit 0",
     "lint:watch": "esw -w lib/**",
-    "prepublish": "npm run build"
+    "preinstall": "npm run build",
+    "build:watch": "babel lib -w -d build"
   },
   "repository": {
     "type": "git",
