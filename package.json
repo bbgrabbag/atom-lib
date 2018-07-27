@@ -1,5 +1,5 @@
 {
-  "name": "component-lib",
+  "name": "atom-lib",
   "version": "1.0.0",
   "description": "Personal ReactJS component library",
   "main": "build/index.js",
