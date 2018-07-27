@@ -9,6 +9,18 @@
 
 ---
 
+## Usage
+```javascript
+    import {
+    Toggler 
+    Async,
+    FormContainer, 
+    ... 
+    } from "atom-lib";
+```
+
+---
+
 ## Containers
 
 Containers are components that have some sort of reusable functionality. Their internal state/methods are exposed mainly via `render props`. The `render` function must always return either a React element or React component.
