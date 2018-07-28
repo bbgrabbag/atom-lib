@@ -78,6 +78,13 @@ function App(props) {
 }
 ```
 
+#### § `<FormContainer>`
+##### Props
+Name | Type | Default Value | Description
+--- | --- | --- | ---
+`inputs` *[required]* | `Object` | `N/A` | Initial input values
+`submit` *[required]* | `Func` | `N/A` | Callback function executed at `onSubmit` listener. See below for arguments
+
 <!-- NEXT: FormContainer, FileUploader --> 
 
 
