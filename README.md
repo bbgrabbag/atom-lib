@@ -78,6 +78,35 @@ function App(props) {
 }
 ```
 
-<!-- NEXT: FormContainer, FileUploader --> 
+#### § `<FormContainer>`
+##### Props
+Name | Type | Default Value | Description
+--- | --- | --- | ---
+`reset` *[optional]* | `Bool` | `false` | If true, resets inputs to their original values after submit
+`inputs` *[required]* | `Object` | `N/A` | Initial input values
+`submit` *[required]* | `Func` | `N/A` | Callback function executed at `onSubmit` listener. Argument object: `{e, inputs, uploader}` 
+`render` *[required]* | `Func` | `N/A` | See below
+
+##### Render Props
+Argument | Type  | Description
+--- | --- | ---
+`inputs` | `Object` | Current input values for state-controlled input elements
+`handleSubmit` | `Func` | `onSubmit` Event listener
+`handleChange` | `Func` | `onChange` Event listener
+
+```javascript
+<FormContainer
+    reset
+    inputs={{ name: "", under18: true }}
+    submit={({ e, inputs, uploader }) => alert(e.target, inputs, uploader.files)}
+    render={({ inputs, handleSubmit, handleChange, uploader }) => (
+        <form onSubmit={handleSubmit}>
+            <input onChange={handleChange} name="name" value={inputs.name} type="text" />
+            <label htmlFor="legal-age">Minor: <input name="under18"id="legal-age"onChange={handleChange}checked={inputs.under18}type="checkbox"/></label>
+            <input ref={uploader} type="file" />
+            <button>+</button>
+        </form>
+        )} />
+```
 
 
