@@ -1,14 +1,14 @@
 {
   "name": "atom-lib",
   "version": "1.0.0",
-  "description": "Personal ReactJS component library",
+  "description": "Personal ReactJS container library",
   "main": "build/index.js",
   "scripts": {
     "build": "babel lib -d build",
     "lint": "eslint lib/**; exit 0",
     "lint:watch": "esw -w lib/**",
-    "preinstall": "npm run build",
-    "build:watch": "babel lib -w -d build"
+    "build:watch": "babel lib -w -d build",
+    "preinstall": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -38,10 +38,8 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.10.0",
     "eslint-watch": "^4.0.2",
-    "polished": "^1.9.3",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "styled-components": "^3.3.3"
+    "react-dom": "^16.4.1"
   }
 }
