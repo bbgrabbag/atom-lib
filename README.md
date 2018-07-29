@@ -1,8 +1,5 @@
-# ReactJS Component Library
-## Built using atomic design principles: 
-
-#### Atoms, Molecules, Containers
----
+# ReactJS Container Library
+### Reusable container components for common React features/functionalities
 
 ## Install
 `npm install --save atom-lib`
@@ -23,7 +20,7 @@
 
 ## Containers
 
-Containers are components that have some sort of reusable functionality. Their internal state/methods are exposed mainly via `render props`. The `render` function must always return either a React element or React component.
+Containers are components that have some sort of reusable functionality. Internal state/methods are exposed mainly via `render props` unless otherwise specified. The `render` function must always return either a React element or a React component.
 
 #### § `<Toggler>`
 ##### Props
@@ -40,13 +37,13 @@ Argument | Type  | Description
 
 ```javascript
 <Toggler toggled render={({toggled, toggle}) => {
-                return (
-                    <div>
-                        <button onClick={toggle}>Switch</button>
-                        <div>{toggled ? "ON" : "OFF"}</div>
-                    </div>
-                )
-            }} />
+    return (
+        <div>
+            <button onClick={toggle}>Switch</button>
+            <div>{toggled ? "ON" : "OFF"}</div>
+        </div>
+    )
+}} />
 ```
 
 #### § `<Async>`
@@ -103,6 +100,7 @@ Argument | Type  | Description
         <form onSubmit={handleSubmit}>
             <input onChange={handleChange} name="name" value={inputs.name} type="text" />
             <label htmlFor="legal-age">Minor: <input name="under18"id="legal-age"onChange={handleChange}checked={inputs.under18}type="checkbox"/></label>
+            {/* For forms with file uploading, use the uploader as a ref on input elements with a 'file' type*/}
             <input ref={uploader} type="file" />
             <button>+</button>
         </form>
