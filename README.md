@@ -10,8 +10,9 @@
 ```javascript
     import {
     Toggler 
-    Async,
-    FormContainer, 
+    SwitchBoard,
+    Loader,
+    Catch,
     ... 
     } from "atom-lib";
 ```
@@ -20,91 +21,54 @@
 
 ## Containers
 
-Containers are components that have some sort of reusable functionality. Internal state/methods are exposed mainly via `render props` unless otherwise specified. The `render` function must always return either a React element or a React component.
+Containers are components that have some sort of reusable functionality. Internal state/methods are exposed mainly via `children props` unless otherwise stated. The `children` function must always return either a React element or a React component. A corresponding HOC is also provided unless otherwise stated.
 
 #### § `<Toggler>`
 ##### Props
-Name | Type | Default Value | Description
+Name | Type | Default | Description
 --- | --- | --- | ---
-`render` *[required]* | `Func` | `N/A` | See below
-`toggled` *[optional]* | `Bool` | `false` | Determines initial value of internal state
+`children` *[required]* | `Func` | `N/A` | See below
+`on` *[optional]* | `Bool` | `false` | Determines initial value of toggler
 
-##### Render Props
-Argument | Type  | Description
+##### Children Props
+Property | Type  | Description
 --- | --- | ---
-`toggled` | `Bool` | The value of current state
+`on` | `Bool` | The value of current state
 `toggle` | `Func` | Callback function which adjusts `toggled` value
 
 ```javascript
-<Toggler toggled render={({toggled, toggle}) => {
-    return (
+<Toggler on>
+    {({on, toggle}) => (
         <div>
-            <button onClick={toggle}>Switch</button>
-            <div>{toggled ? "ON" : "OFF"}</div>
+            <button onClick={toggle}>{on ? "ON" : "OFF"}</button>
         </div>
-    )
-}} />
+    )}
+</Toggler>
 ```
 
-#### § `<Async>`
-##### Props
-Name | Type | Default Value | Description
+---
+
+#### § `withToggler`
+Will expose the `toggle` and `on` values from above as `props` to the specified component.
+
+>`withToggler(config)(component)`
+
+`config` *[optional]*
+
+Properties | Type | Default | Description
 --- | --- | --- | ---
-`promise` *[required]* | `Promise` | `N/A` | A promise, the status of which is maintained in state 
-`resolved` *[required]* | `Func` | `N/A` | Callback which is triggered upon promise resolution
-`rejected` *[required]* | `Func` | `N/A` | Callback which is triggered upon promise rejection
-`pending` *[required]* | `Func` | `N/A` | Callback which is triggered while promise status is pending
+`on` *[optional]* | `Boolean` | `false` | Initial value of toggler
 
 ```javascript
-function App(props) {
-    const flipCoin = new Promise((res, rej) => {
-        setTimeout(() => {
-            const result = Math.random() < .5;
-            result ? res("HEADS!") : rej("TAILS!");
-        }, 1500);
-    })
+import {withToggler} from "atom-lib"
+
+function YourComponent({on, toggle}){
     return (
-        <div>
-            <Async promise={flipCoin}
-                resolved={response => (<h3>{response}</h3>)}
-                rejected={err => (<h3>{err}</h3>)}
-                pending={() => (<div>Call it in the air!</div>)}
-            />
-        </div>
+        // ...
     )
 }
-```
 
-#### § `<FormContainer>`
-##### Props
-Name | Type | Default Value | Description
---- | --- | --- | ---
-`reset` *[optional]* | `Bool` | `false` | If true, resets inputs to their original values after submit
-`inputs` *[required]* | `Object` | `N/A` | Initial input values
-`submit` *[required]* | `Func` | `N/A` | Callback function executed at `onSubmit` listener. Argument object: `{e, inputs, uploader}` 
-`render` *[required]* | `Func` | `N/A` | See below
-
-##### Render Props
-Argument | Type  | Description
---- | --- | ---
-`inputs` | `Object` | Current input values for state-controlled input elements
-`handleSubmit` | `Func` | `onSubmit` Event listener
-`handleChange` | `Func` | `onChange` Event listener
-
-```javascript
-<FormContainer
-    reset
-    inputs={{ name: "", under18: true }}
-    submit={({ e, inputs, uploader }) => alert(e.target, inputs, uploader.files)}
-    render={({ inputs, handleSubmit, handleChange, uploader }) => (
-        <form onSubmit={handleSubmit}>
-            <input onChange={handleChange} name="name" value={inputs.name} type="text" />
-            <label htmlFor="legal-age">Minor: <input name="under18"id="legal-age"onChange={handleChange}checked={inputs.under18}type="checkbox"/></label>
-            {/* For forms with file uploading, use the uploader as a ref on input elements with a 'file' type*/}
-            <input ref={uploader} type="file" />
-            <button>+</button>
-        </form>
-        )} />
+export default withToggler({on: false})(YourComponent)
 ```
 
 
