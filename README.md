@@ -71,4 +71,6 @@ function YourComponent({on, toggle}){
 export default withToggler({on: false})(YourComponent)
 ```
 
+NEXT: SWITCHBOARD, SWITCH, withSwitch, withSwitchboard
+
 
