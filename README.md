@@ -111,7 +111,7 @@ Property | Type  | Description
           )}
           <button onClick={toggleExclusive}>{exclusive ? "Set back to Inclusive" : "Set back to exclusive"}</button>
           <button onClick={flipBoard}>{flipped ? "Reset" : "Invert"}</button>
-          <p>Currently, {Object.keys(switches).reduce((total, sw) => sw ? total + 1 : total, 0)} switches are ON</p>
+          <p>Currently, {Object.keys(switches).reduce((total, sw) => switches[sw] ? total + 1 : total, 0)} switches are ON</p>
         </Switch>
       </div>
     )}
